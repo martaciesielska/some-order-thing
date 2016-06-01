@@ -1,5 +1,5 @@
 {
-    "tableNumer" : 23,
+    "tableNumber" : 23,
     "lineItems" : [{
         "quantity" : 2,
         "item" : "razor blade ice cream",

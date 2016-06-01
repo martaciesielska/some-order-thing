@@ -17,8 +17,8 @@
 
         public int TableNumber
         {
-            get { return (int)this.joey["tableNumer"]; }
-            set { this.joey["tableNumer"] = value; }
+            get { return (int)this.joey["tableNumber"]; }
+            set { this.joey["tableNumber"] = value; }
         }
 
         public List<LineItem> LineItems
@@ -26,20 +26,33 @@
             get { return this.lineItems; }
         }
 
-        public decimal Tax { get; set; }
+        public decimal Tax
+        {
+            get { return (decimal)this.joey["tax"]; }
+            set { this.joey["tax"] = value; }
+        }
 
-        public decimal Total { get; set; }
+        public decimal Total
+        {
+            get { return (decimal)this.joey["total"]; }
+            set { this.joey["total"] = value; }
+        }
 
-        public bool Paid { get; set; }
+        public bool Paid
+        {
+            get { return (bool)this.joey["paid"]; }
+            set { this.joey["paid"] = value; }
+        }
 
         public JObject Serialize()
         {
             return this.joey;
         }
 
-        public List<string> Ingredients
+        public string Ingredients
         {
-            get { return this.ingredients; }
+            get { return (string)this.joey["ingredients"]; }
+            set { this.joey["ingredients"] = value; }
         }
 
         public class LineItem

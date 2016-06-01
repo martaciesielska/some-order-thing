@@ -27,5 +27,16 @@
             tableOrder.TableNumber = 42;
             Assert.Equal(42, tableOrder.TableNumber);
         }
+
+        [Fact]
+        public void GetIngredients()
+        {
+            var json = Properties.Resources.TestData;
+            var jObject = JObject.Parse(json);
+
+            var tableOrder = new TableOrder(jObject);
+
+            Assert.Equal("razor blades, ice cream", tableOrder.Ingredients);
+        }
     }
 }
