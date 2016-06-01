@@ -11,6 +11,8 @@
             var json = Properties.Resources.TestData;
             var jObject = JObject.Parse(json);
 
+            var tableOrder = new TableOrder(jObject);
+
         }
     }
 }
