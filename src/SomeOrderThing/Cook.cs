@@ -15,6 +15,8 @@
         {
             Thread.Sleep(2000);
 
+            var tableOrder = order.Copy();
+
             order.Ingredients = "KFC chicken";
 
             this.orderHandler.Handle(order);

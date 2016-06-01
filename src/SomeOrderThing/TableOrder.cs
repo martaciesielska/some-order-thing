@@ -79,6 +79,11 @@
             set { this.joey["ingredients"] = value; }
         }
 
+        public TableOrder Copy()
+        {
+            return new TableOrder((JObject)this.Serialize().DeepClone());
+        }
+
         public class LineItem
         {
             public int Quantity { get; set; }
