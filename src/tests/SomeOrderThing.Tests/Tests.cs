@@ -49,5 +49,16 @@
             var lineItems = tableOrder.LineItems;
             Assert.NotEmpty(tableOrder.LineItems);
         }
+
+        [Fact]
+        public void SetLineItems()
+        {
+            var json = Properties.Resources.TestData;
+            var jObject = JObject.Parse(json);
+
+            var tableOrder = new TableOrder(jObject);
+            tableOrder.LineItems.Add(new TableOrder.LineItem { Quantity = 4, Item = "Cheese Please", Price = 12.34m });
+            Assert.NotEmpty(tableOrder.LineItems);
+        }
     }
 }

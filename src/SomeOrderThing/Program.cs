@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SomeOrderThing
+﻿namespace SomeOrderThing
 {
     class Program
     {
         static void Main(string[] args)
         {
+            var order = new TableOrder
+            {
+                TableNumber = 17,
+            };
+
+            var waiter = new Waiter();
+            waiter.Handle(order);
         }
     }
 }

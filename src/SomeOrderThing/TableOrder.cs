@@ -9,6 +9,11 @@
 
         private readonly JObject joey;
 
+        public TableOrder()
+            : this(new JObject())
+        {
+        }
+
         public TableOrder(JObject joey)
         {
             this.joey = joey;
