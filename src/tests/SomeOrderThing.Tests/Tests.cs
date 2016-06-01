@@ -3,6 +3,7 @@
     using Newtonsoft.Json.Linq;
     using SomeOrderThing;
     using Xunit;
+    using System.Linq;
 
     public class Tests
     {
@@ -62,7 +63,7 @@
 
             var serialized = tableOrder.Serialize();
             var jArray = serialized["lineItems"];
-            // some test
+            Assert.Equal(2, jArray.Count());
         }
     }
 }

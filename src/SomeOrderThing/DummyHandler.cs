@@ -1,11 +1,12 @@
 ﻿namespace SomeOrderThing
 {
+    using System;
     using System.Threading;
     public class DummyHandler : IHandleOrder
     {
         public void Handle(TableOrder order)
         {
-            Thread.Sleep(100);
+            Console.WriteLine(order.Serialize().ToString());
         }
     }
 }

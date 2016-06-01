@@ -1,10 +1,10 @@
-﻿using System;
-
-namespace SomeOrderThing
+﻿namespace SomeOrderThing
 {
-    class Program
+    using System;
+
+    internal class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             var order = new TableOrder(Guid.NewGuid())
             {
