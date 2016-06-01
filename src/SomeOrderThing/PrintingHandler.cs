@@ -1,8 +1,8 @@
 ﻿namespace SomeOrderThing
 {
     using System;
-    using System.Threading;
-    public class DummyHandler : IHandleOrder
+
+    public class PrintingHandler : IHandleOrder
     {
         public void Handle(TableOrder order)
         {

@@ -6,15 +6,13 @@
     {
         public static void Main(string[] args)
         {
-            var order = new TableOrder(Guid.NewGuid())
-            {
-                TableNumber = 17,
-            };
+            var order = new TableOrder(Guid.NewGuid());
 
-            order.LineItems.Add(new TableOrder.LineItem { Quantity = 1, Item = "KFC please", Price = 4m });
-
-            var cook = new Cook(new DummyHandler());
+            var printer = new PrintingHandler();
+            var assMan = new AssistantManager(printer);
+            var cook = new Cook(assMan);
             var waiter = new Waiter(cook);
+            
             waiter.Handle(order);
         }
     }

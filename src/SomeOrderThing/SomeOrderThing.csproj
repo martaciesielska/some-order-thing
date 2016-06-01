@@ -46,7 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DummyHandler.cs" />
+    <Compile Include="AssistantManager.cs" />
+    <Compile Include="PrintingHandler.cs" />
     <Compile Include="IHandleOrder.cs" />
     <Compile Include="TableOrder.cs" />
     <Compile Include="Program.cs" />

@@ -17,9 +17,9 @@
 
             var tableOrder = order.Copy();
 
-            order.Ingredients = "KFC chicken";
+            tableOrder.Ingredients = "KFC chicken";
 
-            this.orderHandler.Handle(order);
+            this.orderHandler.Handle(tableOrder);
         }
     }
 }
