@@ -11,7 +11,8 @@ namespace SomeOrderThing
                 TableNumber = 17,
             };
 
-            var waiter = new Waiter();
+            var cook = new Cook(new DummyHandler());
+            var waiter = new Waiter(cook);
             waiter.Handle(order);
         }
     }
