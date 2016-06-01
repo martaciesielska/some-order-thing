@@ -1,0 +1,12 @@
+{ 
+	tableNumer : 23,
+	lineItems : {
+		quantity : 2,
+		item : "razor blade ice cream",
+		price : 2.99
+	},
+	tax : 3.00,
+	total : 3.00, 
+	paid : false,
+	ingredients : "razor blades, ice cream"
+}
