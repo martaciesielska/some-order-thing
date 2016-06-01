@@ -41,12 +41,6 @@
     <Compile Include="Tests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SomeOrderThing\SomeOrderThing.csproj">
-      <Project>{090733df-16da-4b4b-ad83-8920d6ceb83c}</Project>
-      <Name>SomeOrderThing</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
     <Content Include="TestData.txt" />
   </ItemGroup>
@@ -79,6 +73,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SomeOrderThing\SomeOrderThing.csproj">
+      <Project>{090733df-16da-4b4b-ad83-8920d6ceb83c}</Project>
+      <Name>SomeOrderThing</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

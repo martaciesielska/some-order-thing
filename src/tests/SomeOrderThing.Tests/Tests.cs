@@ -1,6 +1,7 @@
 ﻿namespace SomeOrderThing.Tests
 {
     using Newtonsoft.Json.Linq;
+    using SomeOrderThing;
     using Xunit;
 
     public class Tests
