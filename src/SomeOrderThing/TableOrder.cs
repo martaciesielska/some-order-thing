@@ -17,10 +17,8 @@
 
         public int TableNumber
         {
-            get
-            {
-                return (int)this.joey["tableNumer"];
-            }
+            get { return (int)this.joey["tableNumer"]; }
+            set { this.joey["tableNumer"] = value; }
         }
 
         public List<LineItem> LineItems
@@ -33,6 +31,11 @@
         public decimal Total { get; set; }
 
         public bool Paid { get; set; }
+
+        public JObject Serialize()
+        {
+            return this.joey;
+        }
 
         public List<string> Ingredients
         {
