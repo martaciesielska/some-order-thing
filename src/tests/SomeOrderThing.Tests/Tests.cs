@@ -38,5 +38,16 @@
 
             Assert.Equal("razor blades, ice cream", tableOrder.Ingredients);
         }
+
+        [Fact]
+        public void GetLineItems()
+        {
+            var json = Properties.Resources.TestData;
+            var jObject = JObject.Parse(json);
+
+            var tableOrder = new TableOrder(jObject);
+            var lineItems = tableOrder.LineItems;
+            Assert.NotEmpty(tableOrder.LineItems);
+        }
     }
 }

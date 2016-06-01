@@ -6,13 +6,20 @@
     public class TableOrder
     {
         private readonly List<LineItem> lineItems = new List<LineItem>();
-        private readonly List<string> ingredients = new List<string>();
 
         private readonly JObject joey;
 
         public TableOrder(JObject joey)
         {
             this.joey = joey;
+
+            var jarray = (JArray)this.joey["lineItems"];
+
+            foreach (var j in jarray)
+            {
+                var lineItem = j.ToObject<LineItem>();
+                this.lineItems.Add(lineItem);
+            }
         }
 
         public int TableNumber
@@ -23,7 +30,10 @@
 
         public List<LineItem> LineItems
         {
-            get { return this.lineItems; }
+            get
+            { 
+                return this.lineItems;
+            }
         }
 
         public decimal Tax
