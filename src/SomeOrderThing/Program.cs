@@ -9,7 +9,8 @@
             var order = new TableOrder(Guid.NewGuid());
 
             var printer = new PrintingHandler();
-            var assMan = new AssistantManager(printer);
+            var cashier = new Cashier(printer);
+            var assMan = new AssistantManager(cashier);
             var cook = new Cook(assMan);
             var waiter = new Waiter(cook);
             
