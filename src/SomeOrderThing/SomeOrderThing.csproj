@@ -50,6 +50,7 @@
     <Compile Include="TableOrder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Cook.cs" />
     <Compile Include="Waiter.cs" />
   </ItemGroup>
   <ItemGroup>
