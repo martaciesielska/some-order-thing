@@ -19,7 +19,7 @@
         {
             get
             {
-                return 1;
+                return (int)this.joey["tableNumer"];
             }
         }
 
