@@ -1,17 +1,19 @@
 ﻿namespace SomeOrderThing
 {
+    using System;
     using System.Collections.Generic;
     using Newtonsoft.Json.Linq;
-    using Newtonsoft.Json;
+
     public class TableOrder
     {
         private readonly List<LineItem> lineItems = new List<LineItem>();
 
         private readonly JObject joey;
 
-        public TableOrder()
-            : this(new JObject())
+        public TableOrder(Guid id)
         {
+            this.joey = new JObject();
+            this.Id = id;
         }
 
         public TableOrder(JObject joey)
@@ -25,6 +27,12 @@
                 var lineItem = j.ToObject<LineItem>();
                 this.lineItems.Add(lineItem);
             }
+        }
+
+        public Guid Id
+        {
+            get { return (Guid)this.joey["id"]; }
+            set { this.joey["id"] = value; }
         }
 
         public int TableNumber
