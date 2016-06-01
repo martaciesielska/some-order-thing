@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using Newtonsoft.Json.Linq;
-
+    using Newtonsoft.Json;
     public class TableOrder
     {
         private readonly List<LineItem> lineItems = new List<LineItem>();
@@ -56,6 +56,7 @@
 
         public JObject Serialize()
         {
+            this.joey["lineItems"] = JObject.FromObject(this.lineItems);
             return this.joey;
         }
 
