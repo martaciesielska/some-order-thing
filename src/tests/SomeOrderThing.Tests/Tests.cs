@@ -59,6 +59,10 @@
             var tableOrder = new TableOrder(jObject);
             tableOrder.LineItems.Add(new TableOrder.LineItem { Quantity = 4, Item = "Cheese Please", Price = 12.34m });
             Assert.NotEmpty(tableOrder.LineItems);
+
+            var serialized = tableOrder.Serialize();
+            var jArray = serialized["lineItems"];
+            // some test
         }
     }
 }

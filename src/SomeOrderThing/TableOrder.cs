@@ -69,7 +69,7 @@
 
         public JObject Serialize()
         {
-            this.joey["lineItems"] = JObject.FromObject(this.lineItems);
+            this.joey["lineItems"] = JArray.FromObject(this.lineItems);
             return this.joey;
         }
 
