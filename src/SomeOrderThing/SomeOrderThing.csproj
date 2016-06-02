@@ -51,6 +51,7 @@
     <Compile Include="Multiplexer.cs" />
     <Compile Include="PrintingHandler.cs" />
     <Compile Include="IHandleOrder.cs" />
+    <Compile Include="RoundRobinDispatcher.cs" />
     <Compile Include="TableOrder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -10,7 +10,7 @@
             var cashier = new Cashier(printer);
             var assMan = new AssistantManager(cashier);
             var cooks = new Cook[] { new Cook(assMan), new Cook(assMan), new Cook(assMan) };
-            var multiplexer = new Multiplexer(cooks);
+            var multiplexer = new RoundRobinDispatcher(cooks);
             var waiter = new Waiter(multiplexer);
 
             for (var i = 0; i < 10; i++)
