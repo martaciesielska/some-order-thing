@@ -7,12 +7,14 @@
         private readonly IPublisher publisher;
         private readonly string name;
         private readonly int sleepTime;
+        private readonly string topic;
 
-        public Cook(IPublisher publisher, string name, int sleepTime)
+        public Cook(IPublisher publisher, string topic, string name, int sleepTime)
         {
             this.publisher = publisher;
             this.sleepTime = sleepTime;
             this.name = name;
+            this.topic = topic;
         }
 
         public string Name
@@ -32,7 +34,7 @@
             tableOrder.Ingredients = "KFC chicken";
             tableOrder.CookName = this.name;
 
-            this.publisher.Publish("price order", tableOrder);
+            this.publisher.Publish(this.topic, tableOrder);
         }
     }
 }

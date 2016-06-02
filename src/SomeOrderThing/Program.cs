@@ -13,25 +13,25 @@
             var random = new Random();
 
             var publisher = new TopicBasedPubSub();
+
             var printer = new PrintingHandler();
-            var cashier = new TaskThreadedHandler(new Cashier(publisher), "cashier");
-            var assMan = new TaskThreadedHandler(new AssistantManager(publisher), "assMan");
+            var cashier = new TaskThreadedHandler(new Cashier(publisher, "print order"), "cashier");
+            var assMan = new TaskThreadedHandler(new AssistantManager(publisher, "take payment"), "assMan");
 
             var cooks = new[]
             {
-                new TaskThreadedHandler(new Cook(publisher, "Guybrush Threepwood", random.Next(500, 3000)), "Guybrush Threepwood"),
-                new TaskThreadedHandler(new Cook(publisher, "Elaine Marley", random.Next(500, 3000)), "Elaine Marley"),
-                new TaskThreadedHandler(new Cook(publisher, "Zombie Pirate LeChuck", random.Next(500, 3000)), "Zombie Pirate LeChuck")
+                new TaskThreadedHandler(new Cook(publisher, "price order", "Guybrush Threepwood", random.Next(500, 3000)), "Guybrush Threepwood"),
+                new TaskThreadedHandler(new Cook(publisher, "price order", "Elaine Marley", random.Next(500, 3000)), "Elaine Marley"),
+                new TaskThreadedHandler(new Cook(publisher, "price order", "Zombie Pirate LeChuck", random.Next(500, 3000)), "Zombie Pirate LeChuck")
             };
 
             var dispatcher = new TaskThreadedHandler(new MoreFairDispatcher(cooks), "More fair handler");
-            var waiter = new Waiter(publisher);
+            var waiter = new Waiter(publisher, "cook food");
 
             list.Add(cashier);
             list.Add(assMan);
             list.Add(dispatcher);
             list.AddRange(cooks);
-
 
             publisher.Subscribe("cook food", dispatcher);
             publisher.Subscribe("price order", assMan);
