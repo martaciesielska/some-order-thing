@@ -1,6 +1,7 @@
 ﻿namespace SomeOrderThing
 {
-    public interface IStartable
+    using System;
+    public interface IStartable : IDisposable
     {
         void Start();
     }
