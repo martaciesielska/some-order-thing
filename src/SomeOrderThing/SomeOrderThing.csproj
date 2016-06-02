@@ -51,6 +51,11 @@
     <Compile Include="IPublisher.cs" />
     <Compile Include="IStartable.cs" />
     <Compile Include="ListExtensions.cs" />
+    <Compile Include="Messages\MessageBase.cs" />
+    <Compile Include="Messages\OrderCooked.cs" />
+    <Compile Include="Messages\OrderPaid.cs" />
+    <Compile Include="Messages\OrderPriced.cs" />
+    <Compile Include="Messages\OrderPlaced.cs" />
     <Compile Include="Multiplexer.cs" />
     <Compile Include="PrintingHandler.cs" />
     <Compile Include="IHandleOrder.cs" />
