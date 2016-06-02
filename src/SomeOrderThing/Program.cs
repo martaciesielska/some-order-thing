@@ -53,7 +53,7 @@
 
             cts.Cancel();
 
-            list.ForEach(item => item.Start());
+            list.ForEach(item => item.Dispose());
         }
 
         private static void MonitorStuff(IEnumerable<TaskThreadedHandler> handlers, CancellationToken token)
