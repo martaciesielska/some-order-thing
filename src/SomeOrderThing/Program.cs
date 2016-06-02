@@ -9,34 +9,39 @@
     {
         public static void Main(string[] args)
         {
+            const string cookTopic = "cook food";
+            const string priceOrderTopic = "price order";
+            const string takePaymentTopic = "take payment";
+            const string printOrderTopic = "print order";
+
             var list = new List<TaskThreadedHandler>();
             var random = new Random();
 
             var publisher = new TopicBasedPubSub();
 
             var printer = new PrintingHandler();
-            var cashier = new TaskThreadedHandler(new Cashier(publisher, "print order"), "cashier");
-            var assMan = new TaskThreadedHandler(new AssistantManager(publisher, "take payment"), "assMan");
+            var cashier = new TaskThreadedHandler(new Cashier(publisher, printOrderTopic), "cashier");
+            var assMan = new TaskThreadedHandler(new AssistantManager(publisher, takePaymentTopic), "assMan");
 
             var cooks = new[]
             {
-                new TaskThreadedHandler(new Cook(publisher, "price order", "Guybrush Threepwood", random.Next(500, 3000)), "Guybrush Threepwood"),
-                new TaskThreadedHandler(new Cook(publisher, "price order", "Elaine Marley", random.Next(500, 3000)), "Elaine Marley"),
-                new TaskThreadedHandler(new Cook(publisher, "price order", "Zombie Pirate LeChuck", random.Next(500, 3000)), "Zombie Pirate LeChuck")
+                new TaskThreadedHandler(new Cook(publisher, priceOrderTopic, "Guybrush Threepwood", random.Next(500, 3000)), "Guybrush Threepwood"),
+                new TaskThreadedHandler(new Cook(publisher, priceOrderTopic, "Elaine Marley", random.Next(500, 3000)), "Elaine Marley"),
+                new TaskThreadedHandler(new Cook(publisher, priceOrderTopic, "Zombie Pirate LeChuck", random.Next(500, 3000)), "Zombie Pirate LeChuck")
             };
 
             var dispatcher = new TaskThreadedHandler(new MoreFairDispatcher(cooks), "More fair handler");
-            var waiter = new Waiter(publisher, "cook food");
+            var waiter = new Waiter(publisher, cookTopic);
 
             list.Add(cashier);
             list.Add(assMan);
             list.Add(dispatcher);
             list.AddRange(cooks);
 
-            publisher.Subscribe("cook food", dispatcher);
-            publisher.Subscribe("price order", assMan);
-            publisher.Subscribe("take payment", cashier);
-            publisher.Subscribe("print order", printer);
+            publisher.Subscribe(cookTopic, dispatcher);
+            publisher.Subscribe(priceOrderTopic, assMan);
+            publisher.Subscribe(takePaymentTopic, cashier);
+            publisher.Subscribe(printOrderTopic, printer);
 
             var cts = new CancellationTokenSource();
             Task.Run(() => MonitorStuff(list, cts.Token));

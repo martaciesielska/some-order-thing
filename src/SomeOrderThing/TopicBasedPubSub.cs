@@ -1,7 +1,5 @@
-﻿
-namespace SomeOrderThing
+﻿namespace SomeOrderThing
 {
-    using System;
     using System.Collections.Generic;
 
     public class TopicBasedPubSub : IPublisher
