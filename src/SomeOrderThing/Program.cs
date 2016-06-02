@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Messages;
@@ -32,10 +33,10 @@
             var list = new List<IMonitorable>();
             list.AddRange(cooks, cashier, assMan, dispatcher);
 
-            publisher.Subscribe(dispatcher);
-            publisher.Subscribe(assMan);
-            publisher.Subscribe(cashier);
-            publisher.Subscribe(printer);
+            publisher.SubscribeByType(dispatcher);
+            publisher.SubscribeByType(assMan);
+            publisher.SubscribeByType(cashier);
+            publisher.SubscribeByType(printer);
 
             var cts = new CancellationTokenSource();
             Task.Run(() => MonitorStuff(list, cts.Token));
@@ -47,6 +48,10 @@
                 var order = new TableOrder(Guid.NewGuid());
                 waiter.Handle(order);
             }
+
+            Thread.Sleep(2000);
+            publisher.UnsubscribeByType(dispatcher);
+            publisher.SubscribeByType(cooks.First());
 
             Console.ReadLine();
 

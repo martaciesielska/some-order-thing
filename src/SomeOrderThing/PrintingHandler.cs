@@ -7,7 +7,7 @@
     {
         public void Handle(OrderPaid orderPaid)
         {
-            Console.WriteLine(orderPaid.Order.Serialize().ToString());
+            ////Console.WriteLine(orderPaid.Order.Serialize().ToString());
         }
     }
 }
