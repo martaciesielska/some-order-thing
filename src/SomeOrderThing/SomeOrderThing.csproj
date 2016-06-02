@@ -50,6 +50,7 @@
     <Compile Include="Cashier.cs" />
     <Compile Include="IPublisher.cs" />
     <Compile Include="IStartable.cs" />
+    <Compile Include="ListExtensions.cs" />
     <Compile Include="Multiplexer.cs" />
     <Compile Include="PrintingHandler.cs" />
     <Compile Include="IHandleOrder.cs" />

@@ -14,15 +14,13 @@
             const string takePaymentTopic = "take payment";
             const string printOrderTopic = "print order";
 
-            var list = new List<TaskThreadedHandler>();
-            var random = new Random();
-
             var publisher = new TopicBasedPubSub();
 
             var printer = new PrintingHandler();
             var cashier = new TaskThreadedHandler(new Cashier(publisher, printOrderTopic), "cashier");
             var assMan = new TaskThreadedHandler(new AssistantManager(publisher, takePaymentTopic), "assMan");
 
+            var random = new Random();
             var cooks = new[]
             {
                 new TaskThreadedHandler(new Cook(publisher, priceOrderTopic, "Guybrush Threepwood", random.Next(500, 3000)), "Guybrush Threepwood"),
@@ -33,10 +31,8 @@
             var dispatcher = new TaskThreadedHandler(new MoreFairDispatcher(cooks), "More fair handler");
             var waiter = new Waiter(publisher, cookTopic);
 
-            list.Add(cashier);
-            list.Add(assMan);
-            list.Add(dispatcher);
-            list.AddRange(cooks);
+            var list = new List<TaskThreadedHandler>();
+            list.AddRange(cooks, cashier, assMan, dispatcher);
 
             publisher.Subscribe(cookTopic, dispatcher);
             publisher.Subscribe(priceOrderTopic, assMan);
