@@ -1,23 +1,26 @@
 ﻿namespace SomeOrderThing
 {
+    using Messages;
+    using System;
     using System.Collections.Generic;
 
     public class TopicBasedPubSub : IPublisher
     {
-        private readonly Dictionary<string, IHandleOrder> handlers 
-            = new Dictionary<string, IHandleOrder>();
+        private readonly Dictionary<string, Action<object>> handlers 
+            = new Dictionary<string, Action<object>>();
 
-        public void Publish(string topic, TableOrder order)
+        public void Publish(IMessage message)
         {
+            var topic = message.GetType().Name;
             if (this.handlers.ContainsKey(topic))
             {
-                this.handlers[topic].Handle(order);
+                this.handlers[topic](message);
             }
         }
 
-        public void Subscribe(string topic, IHandleOrder handler)
+        public void Subscribe<T>(IHandle<T> handler)
         {
-            this.handlers.Add(topic, handler);
+            this.handlers.Add(typeof(T).Name, message => handler.Handle((T)message));
         }
     }
 }

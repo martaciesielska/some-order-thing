@@ -1,20 +1,19 @@
 ﻿namespace SomeOrderThing
 {
     using System.Threading;
+    using Messages;
 
-    public class Cook : IHandleOrder
+    public class Cook : IHandle<OrderPlaced>
     {
         private readonly IPublisher publisher;
         private readonly string name;
         private readonly int sleepTime;
-        private readonly string topic;
 
-        public Cook(IPublisher publisher, string topic, string name, int sleepTime)
+        public Cook(IPublisher publisher, string name, int sleepTime)
         {
             this.publisher = publisher;
             this.sleepTime = sleepTime;
             this.name = name;
-            this.topic = topic;
         }
 
         public string Name
@@ -25,16 +24,16 @@
             }
         }
 
-        public void Handle(TableOrder order)
+        public void Handle(OrderPlaced orderPlaced)
         {
             Thread.Sleep(this.sleepTime);
 
-            var tableOrder = order.Copy();
+            var tableOrder = orderPlaced.Order.Copy();
 
             tableOrder.Ingredients = "KFC chicken";
             tableOrder.CookName = this.name;
 
-            this.publisher.Publish(this.topic, tableOrder);
+            this.publisher.Publish(new OrderCooked() { Order = tableOrder });
         }
     }
 }

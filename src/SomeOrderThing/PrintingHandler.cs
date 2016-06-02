@@ -1,12 +1,13 @@
 ﻿namespace SomeOrderThing
 {
     using System;
+    using Messages;
 
-    public class PrintingHandler : IHandleOrder
+    public class PrintingHandler : IHandle<OrderPaid>
     {
-        public void Handle(TableOrder order)
+        public void Handle(OrderPaid orderPaid)
         {
-            Console.WriteLine(order.Serialize().ToString());
+            Console.WriteLine(orderPaid.Order.Serialize().ToString());
         }
     }
 }

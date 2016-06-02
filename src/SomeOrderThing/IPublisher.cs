@@ -1,7 +1,9 @@
 ﻿namespace SomeOrderThing
 {
+    using Messages;
+
     public interface IPublisher
     {
-        void Publish(string topic, TableOrder order);
+        void Publish(IMessage message);
     }
 }

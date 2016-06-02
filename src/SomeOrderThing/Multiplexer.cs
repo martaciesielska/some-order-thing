@@ -2,19 +2,19 @@
 {
     using System.Collections.Generic;
 
-    public class Multiplexer : IHandleOrder
+    public class Multiplexer<T> : IHandle<T>
     {
-        private readonly IEnumerable<IHandleOrder> orderHandlers;
+        private readonly IEnumerable<IHandle<T>> orderHandlers;
 
-        public Multiplexer(IEnumerable<IHandleOrder> orderHandlers)
+        public Multiplexer(IEnumerable<IHandle<T>> orderHandlers)
         {
             this.orderHandlers = orderHandlers;
         }
-        public void Handle(TableOrder order)
+        public void Handle(T message)
         {
             foreach (var orderHandler in this.orderHandlers)
             {
-                orderHandler.Handle(order);
+                orderHandler.Handle(message);
             }
         }
     }
