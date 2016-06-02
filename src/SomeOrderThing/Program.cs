@@ -23,11 +23,12 @@
                 new TaskThreadedHandler(new Cook(assMan, "Zombie Pirate LeChuck", random.Next(500, 3000)), "Zombie Pirate LeChuck")
             };
 
-            var dispatcher = new MoreFairDispatcher(cooks);
+            var dispatcher = new TaskThreadedHandler(new MoreFairDispatcher(cooks), "More fair handler");
             var waiter = new Waiter(dispatcher);
 
             list.Add(cashier);
             list.Add(assMan);
+            list.Add(dispatcher);
             list.AddRange(cooks);
 
             var cts = new CancellationTokenSource();
@@ -35,7 +36,7 @@
 
             list.ForEach(item => item.Start());
 
-            for (var i = 0; i < 30; i++)
+            for (var i = 0; i < 50; i++)
             {
                 var order = new TableOrder(Guid.NewGuid());
                 waiter.Handle(order);
