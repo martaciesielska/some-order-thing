@@ -18,6 +18,8 @@
                 var order = new TableOrder(Guid.NewGuid());
                 waiter.Handle(order);
             }
+
+            Console.ReadLine();
         }
     }
 }
