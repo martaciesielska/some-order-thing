@@ -19,35 +19,29 @@
 
         public void Handle(TableOrder order)
         {
-            TaskThreadedHandler handler = null;
-            int count = 0;
-
-            do
+            while (true)
             {
                 for (var x = 0; x < this.handlers.Count; x++)
                 {
-                    handler = this.handlers.Dequeue();
-                    count = handler.Count;
-
-                    if (count < 5)
+                    var handler = this.handlers.Dequeue();
+                    if (handler.Count < 5)
                     {
-                        break;
+                        try
+                        {
+                            handler.Handle(order);
+                        }
+                        finally
+                        {
+                            this.handlers.Enqueue(handler);
+                        }
+
+                        return;
                     }
 
                     this.handlers.Enqueue(handler);
                 }
 
                 Thread.Sleep(1);
-            }
-            while (count >= 5);
-
-            try
-            {
-                handler.Handle(order);
-            }
-            finally
-            {
-                this.handlers.Enqueue(handler);
             }
         }
     }
