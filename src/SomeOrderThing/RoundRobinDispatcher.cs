@@ -1,34 +1,34 @@
-﻿////namespace SomeOrderThing
-////{
-////    using System;
-////    using System.Collections.Generic;
+﻿namespace SomeOrderThing
+{
+    using System;
+    using System.Collections.Generic;
 
-////    public class RoundRobinDispatcher : IHandleOrder
-////    {
-////        private readonly Queue<IHandleOrder> handlers;
+    public class RoundRobinDispatcher<T> : IHandle<T>
+    {
+        private readonly Queue<IHandle<T>> handlers;
 
-////        public RoundRobinDispatcher(IEnumerable<IHandleOrder> handlers)
-////        {
-////            this.handlers = new Queue<IHandleOrder>(handlers);
+        public RoundRobinDispatcher(IEnumerable<IHandle<T>> handlers)
+        {
+            this.handlers = new Queue<IHandle<T>>(handlers);
 
-////            if (this.handlers.Count <= 0)
-////            {
-////                throw new ArgumentException("No handlers!");
-////            }
-////        }
+            if (this.handlers.Count <= 0)
+            {
+                throw new ArgumentException("No handlers!");
+            }
+        }
 
-////        public void Handle(TableOrder order)
-////        {
-////            var handler = this.handlers.Dequeue();
+        public void Handle(T order)
+        {
+            var handler = this.handlers.Dequeue();
 
-////            try
-////            {
-////                handler.Handle(order);
-////            }
-////            finally
-////            {
-////                this.handlers.Enqueue(handler);
-////            }
-////        }
-////    }
-////}
+            try
+            {
+                handler.Handle(order);
+            }
+            finally
+            {
+                this.handlers.Enqueue(handler);
+            }
+        }
+    }
+}

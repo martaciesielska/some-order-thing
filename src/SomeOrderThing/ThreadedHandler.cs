@@ -1,55 +1,55 @@
-﻿//namespace SomeOrderThing
-//{
-//    using System;
-//    using System.Collections.Concurrent;
-//    using System.Threading;
+﻿namespace SomeOrderThing
+{
+    using System;
+    using System.Collections.Concurrent;
+    using System.Threading;
 
-//    public class ThreadedHandler : IHandleOrder, IStartable, IDisposable
-//    {
-//        private readonly ConcurrentQueue<TableOrder> orders;
-//        private readonly IHandleOrder handler;
-//        private Thread thread;
+    public class ThreadedHandler<T> : IHandle<T>, IStartable, IDisposable
+    {
+        private readonly ConcurrentQueue<T> orders;
+        private readonly IHandle<T> handler;
+        private Thread thread;
 
-//        public ThreadedHandler(IHandleOrder handler)
-//        {
-//            this.handler = handler;
-//            this.orders = new ConcurrentQueue<TableOrder>();
-//        }
+        public ThreadedHandler(IHandle<T> handler)
+        {
+            this.handler = handler;
+            this.orders = new ConcurrentQueue<T>();
+        }
 
-//        public void Handle(TableOrder order)
-//        {
-//            this.orders.Enqueue(order);
-//        }
+        public void Handle(T order)
+        {
+            this.orders.Enqueue(order);
+        }
 
-//        public void Start()
-//        {
-//            this.thread = new Thread(new ThreadStart(DoStuff));
-//            thread.Start();
-//        }
+        public void Start()
+        {
+            this.thread = new Thread(new ThreadStart(DoStuff));
+            thread.Start();
+        }
 
-//        private void DoStuff()
-//        {
-//            while (true)
-//            {
-//                TableOrder order;
-//                if (this.orders.TryDequeue(out order))
-//                {
-//                    try
-//                    {
-//                        this.handler.Handle(order);
-//                    }
-//                    catch (Exception)
-//                    {
-//                    }
-//                }
+        private void DoStuff()
+        {
+            while (true)
+            {
+                T order;
+                if (this.orders.TryDequeue(out order))
+                {
+                    try
+                    {
+                        this.handler.Handle(order);
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
 
-//                Thread.Sleep(1);
-//            }
-//        }
+                Thread.Sleep(1);
+            }
+        }
 
-//        public void Dispose()
-//        {
-//            this.thread.Abort();
-//        }
-//    }
-//}
+        public void Dispose()
+        {
+            this.thread.Abort();
+        }
+    }
+}
