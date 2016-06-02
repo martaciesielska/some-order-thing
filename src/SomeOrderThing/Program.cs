@@ -25,6 +25,10 @@
             }
 
             Console.ReadLine();
+            foreach (var cook in cooks)
+            {
+                cook.Dispose();
+            }
         }
     }
 }
