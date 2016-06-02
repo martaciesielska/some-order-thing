@@ -15,6 +15,14 @@
             this.name = name;
         }
 
+        public string Name
+        {
+            get
+            {
+                return this.name;
+            }
+        }
+
         public void Handle(TableOrder order)
         {
             Thread.Sleep(this.sleepTime);

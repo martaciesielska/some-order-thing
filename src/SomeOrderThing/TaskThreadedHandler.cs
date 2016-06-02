@@ -12,9 +12,19 @@
 
         private readonly IHandleOrder handler;
 
-        public TaskThreadedHandler(IHandleOrder handler)
+        public TaskThreadedHandler(IHandleOrder handler, string name)
         {
             this.handler = handler;
+            this.Name = name;
+        }
+
+        public string Name { get; private set; }
+
+        public int Count {
+            get
+            {
+                return this.orders.Count;
+            }
         }
 
         public void Handle(TableOrder order)
