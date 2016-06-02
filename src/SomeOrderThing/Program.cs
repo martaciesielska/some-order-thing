@@ -1,11 +1,10 @@
 ﻿namespace SomeOrderThing
 {
     using System;
-    using System.Linq;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Threading;
     using System.Threading.Tasks;
+
     internal class Program
     {
         public static void Main(string[] args)
@@ -31,7 +30,8 @@
             list.Add(assMan);
             list.AddRange(cooks);
 
-            Task.Run(() => MonitorStuff(list));
+            var cts = new CancellationTokenSource();
+            Task.Run(() => MonitorStuff(list, cts.Token));
 
             list.ForEach(item => item.Start());
 
@@ -43,12 +43,14 @@
 
             Console.ReadLine();
 
+            cts.Cancel();
+
             list.ForEach(item => item.Start());
         }
 
-        private static void MonitorStuff(IEnumerable<TaskThreadedHandler> handlers)
+        private static void MonitorStuff(IEnumerable<TaskThreadedHandler> handlers, CancellationToken token)
         {
-            while (true)
+            while (!token.IsCancellationRequested)
             {
                 Thread.Sleep(500);
                 foreach (var handler in handlers)
