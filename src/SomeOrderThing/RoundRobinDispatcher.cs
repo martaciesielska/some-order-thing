@@ -1,15 +1,20 @@
 ﻿namespace SomeOrderThing
 {
-    using System.Linq;
+    using System;
     using System.Collections.Generic;
+
     public class RoundRobinDispatcher : IHandleOrder
     {
         private readonly Queue<IHandleOrder> handlers;
 
         public RoundRobinDispatcher(IEnumerable<IHandleOrder> handlers)
         {
-            this.handlers = new Queue<IHandleOrder>();
-            handlers.ToList().ForEach(this.handlers.Enqueue);
+            this.handlers = new Queue<IHandleOrder>(handlers);
+
+            if (this.handlers.Count <= 0)
+            {
+                throw new ArgumentException("No handlers!");
+            }
         }
 
         public void Handle(TableOrder order)
