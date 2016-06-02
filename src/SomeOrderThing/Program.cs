@@ -9,7 +9,7 @@
             var printer = new PrintingHandler();
             var cashier = new Cashier(printer);
             var assMan = new AssistantManager(cashier);
-            var cooks = new[] { new ThreadedHandler(new Cook(assMan)), new ThreadedHandler(new Cook(assMan)), new ThreadedHandler(new Cook(assMan)) };
+            var cooks = new[] { new TaskThreadedHandler(new Cook(assMan)), new TaskThreadedHandler(new Cook(assMan)), new TaskThreadedHandler(new Cook(assMan)) };
             var multiplexer = new RoundRobinDispatcher(cooks);
             var waiter = new Waiter(multiplexer);
 
@@ -25,6 +25,7 @@
             }
 
             Console.ReadLine();
+
             foreach (var cook in cooks)
             {
                 cook.Dispose();
