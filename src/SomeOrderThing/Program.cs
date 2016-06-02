@@ -7,13 +7,18 @@
     {
         public static void Main(string[] args)
         {
-            var printer = new PrintingHandler();
-
             var list = new List<IStartable>();
+            var random = new Random();
 
+            var printer = new PrintingHandler();
             var cashier = new TaskThreadedHandler(new Cashier(printer));
             var assMan = new TaskThreadedHandler(new AssistantManager(cashier));
-            var cooks = new[] { new TaskThreadedHandler(new Cook(assMan)), new TaskThreadedHandler(new Cook(assMan)), new TaskThreadedHandler(new Cook(assMan)) };
+            var cooks = new[] 
+            {
+                new TaskThreadedHandler(new Cook(assMan, "Guybrush Threepwood", random.Next(0, 5000))),
+                new TaskThreadedHandler(new Cook(assMan, "Elaine Marley", random.Next(0, 5000))),
+                new TaskThreadedHandler(new Cook(assMan, "Zombie Pirate LeChuck", random.Next(0, 5000)))
+            };
             var multiplexer = new RoundRobinDispatcher(cooks);
             var waiter = new Waiter(multiplexer);
 

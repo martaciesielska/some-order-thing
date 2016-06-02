@@ -79,6 +79,12 @@
             set { this.joey["ingredients"] = value; }
         }
 
+        public string CookName
+        {
+            get { return (string)this.joey["cookName"]; }
+            set { this.joey["cookName"] = value; }
+        }
+
         public TableOrder Copy()
         {
             return new TableOrder((JObject)this.Serialize().DeepClone());
