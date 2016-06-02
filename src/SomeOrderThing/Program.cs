@@ -12,24 +12,31 @@
             var list = new List<TaskThreadedHandler>();
             var random = new Random();
 
+            var publisher = new TopicBasedPubSub();
             var printer = new PrintingHandler();
-            var cashier = new TaskThreadedHandler(new Cashier(printer), "cashier");
-            var assMan = new TaskThreadedHandler(new AssistantManager(cashier), "assMan");
+            var cashier = new TaskThreadedHandler(new Cashier(publisher), "cashier");
+            var assMan = new TaskThreadedHandler(new AssistantManager(publisher), "assMan");
 
             var cooks = new[]
             {
-                new TaskThreadedHandler(new Cook(assMan, "Guybrush Threepwood", random.Next(500, 3000)), "Guybrush Threepwood"),
-                new TaskThreadedHandler(new Cook(assMan, "Elaine Marley", random.Next(500, 3000)), "Elaine Marley"),
-                new TaskThreadedHandler(new Cook(assMan, "Zombie Pirate LeChuck", random.Next(500, 3000)), "Zombie Pirate LeChuck")
+                new TaskThreadedHandler(new Cook(publisher, "Guybrush Threepwood", random.Next(500, 3000)), "Guybrush Threepwood"),
+                new TaskThreadedHandler(new Cook(publisher, "Elaine Marley", random.Next(500, 3000)), "Elaine Marley"),
+                new TaskThreadedHandler(new Cook(publisher, "Zombie Pirate LeChuck", random.Next(500, 3000)), "Zombie Pirate LeChuck")
             };
 
             var dispatcher = new TaskThreadedHandler(new MoreFairDispatcher(cooks), "More fair handler");
-            var waiter = new Waiter(dispatcher);
+            var waiter = new Waiter(publisher);
 
             list.Add(cashier);
             list.Add(assMan);
             list.Add(dispatcher);
             list.AddRange(cooks);
+
+
+            publisher.Subscribe("cook food", dispatcher);
+            publisher.Subscribe("price order", assMan);
+            publisher.Subscribe("take payment", cashier);
+            publisher.Subscribe("print order", printer);
 
             var cts = new CancellationTokenSource();
             Task.Run(() => MonitorStuff(list, cts.Token));
