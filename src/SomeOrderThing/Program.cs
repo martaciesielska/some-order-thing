@@ -52,11 +52,14 @@
         {
             while (!token.IsCancellationRequested)
             {
-                Thread.Sleep(500);
                 foreach (var handler in handlers)
                 {
-                    Console.WriteLine("{0}: {1}", handler.Name, handler.Count);
+                    Console.Write("{0}: {1}, ", handler.Name, handler.Count);
                 }
+
+                Console.WriteLine();
+
+                Thread.Sleep(1000);
             }
         }
     }
