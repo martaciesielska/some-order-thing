@@ -4,6 +4,6 @@
 
     public interface IPublisher
     {
-        void Publish(IMessage message);
+        void Publish<T>(T message);
     }
 }

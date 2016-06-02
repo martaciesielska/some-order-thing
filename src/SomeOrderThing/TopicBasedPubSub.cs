@@ -1,6 +1,5 @@
 ﻿namespace SomeOrderThing
 {
-    using Messages;
     using System;
     using System.Collections.Generic;
 
@@ -9,7 +8,7 @@
         private readonly Dictionary<string, Action<object>> handlers 
             = new Dictionary<string, Action<object>>();
 
-        public void Publish(IMessage message)
+        public void Publish<T>(T message)
         {
             var topic = message.GetType().Name;
             if (this.handlers.ContainsKey(topic))

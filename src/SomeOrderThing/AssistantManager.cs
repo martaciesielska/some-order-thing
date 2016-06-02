@@ -6,7 +6,6 @@
     public class AssistantManager : IHandle<OrderCooked>
     {
         private readonly IPublisher publisher;
-        private readonly string topic;
 
         public AssistantManager(IPublisher publisher)
         {
