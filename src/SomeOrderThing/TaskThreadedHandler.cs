@@ -20,11 +20,9 @@
 
         public string Name { get; private set; }
 
-        public int Count {
-            get
-            {
-                return this.orders.Count;
-            }
+        public int Count
+        {
+            get { return this.orders.Count; }
         }
 
         public void Handle(TableOrder order)
