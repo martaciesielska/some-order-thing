@@ -4,11 +4,11 @@
 
     public class AssistantManager : IHandleOrder
     {
-        private readonly IHandleOrder orderHandler;
+        private readonly IPublisher publisher;
 
-        public AssistantManager(IHandleOrder orderHandler)
+        public AssistantManager(IPublisher publisher)
         {
-            this.orderHandler = orderHandler;
+            this.publisher = publisher;
         }
 
         public void Handle(TableOrder order)
@@ -18,7 +18,7 @@
             tableOrder.Tax = 12.4m;
             tableOrder.Total = tableOrder.LineItems.Sum(lineItem => lineItem.Quantity * lineItem.Price) + tableOrder.Tax;
 
-            orderHandler.Handle(tableOrder);
+            this.publisher.Publish("take payment", tableOrder);
         }
     }
 }

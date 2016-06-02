@@ -2,11 +2,11 @@
 {
     public class Waiter
     {
-        private readonly IHandleOrder orderHandler;
+        private readonly IPublisher publisher;
 
-        public Waiter(IHandleOrder orderHandler)
+        public Waiter(IPublisher publisher)
         {
-            this.orderHandler = orderHandler;
+            this.publisher = publisher;
         }
 
         public void Handle(TableOrder order)
@@ -16,7 +16,7 @@
             tableOrder.TableNumber = 17;
             tableOrder.LineItems.Add(new TableOrder.LineItem { Quantity = 1, Item = "KFC please", Price = 4m });
 
-            this.orderHandler.Handle(tableOrder);
+            this.publisher.Publish("cook food", tableOrder);
         }
     }
 }

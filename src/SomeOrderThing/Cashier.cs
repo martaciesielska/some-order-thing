@@ -2,17 +2,18 @@
 {
     public class Cashier : IHandleOrder
     {
-        private readonly IHandleOrder orderHandler;
-        public Cashier(IHandleOrder orderHandler)
+        private readonly IPublisher publisher;
+
+        public Cashier(IPublisher publisher)
         {
-            this.orderHandler = orderHandler;
+            this.publisher = publisher;
         }
 
         public void Handle(TableOrder order)
         {
             var tableOrder = order.Copy();
             tableOrder.Paid = true;
-            this.orderHandler.Handle(tableOrder);
+            this.publisher.Publish("print order", tableOrder);
         }
     }
 }

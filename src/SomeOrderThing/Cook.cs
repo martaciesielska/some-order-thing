@@ -4,13 +4,13 @@
 
     public class Cook : IHandleOrder
     {
-        private readonly IHandleOrder orderHandler;
+        private readonly IPublisher publisher;
         private readonly string name;
         private readonly int sleepTime;
 
-        public Cook(IHandleOrder orderHandler, string name, int sleepTime)
+        public Cook(IPublisher publisher, string name, int sleepTime)
         {
-            this.orderHandler = orderHandler;
+            this.publisher = publisher;
             this.sleepTime = sleepTime;
             this.name = name;
         }
@@ -32,7 +32,7 @@
             tableOrder.Ingredients = "KFC chicken";
             tableOrder.CookName = this.name;
 
-            this.orderHandler.Handle(tableOrder);
+            this.publisher.Publish("price order", tableOrder);
         }
     }
 }
