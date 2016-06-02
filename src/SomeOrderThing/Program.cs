@@ -16,30 +16,26 @@
             var printer = new PrintingHandler();
             var cashier = new TaskThreadedHandler(new Cashier(printer), "cashier");
             var assMan = new TaskThreadedHandler(new AssistantManager(cashier), "assMan");
-            var cooks = new[] 
+
+            var cooks = new[]
             {
-                new Cook(assMan, "Guybrush Threepwood", random.Next(0, 5000)),
-                new Cook(assMan, "Elaine Marley", random.Next(0, 5000)),
-                new Cook(assMan, "Zombie Pirate LeChuck", random.Next(0, 5000))
+                new TaskThreadedHandler(new Cook(assMan, "Guybrush Threepwood", random.Next(500, 3000)), "Guybrush Threepwood"),
+                new TaskThreadedHandler(new Cook(assMan, "Elaine Marley", random.Next(500, 3000)), "Elaine Marley"),
+                new TaskThreadedHandler(new Cook(assMan, "Zombie Pirate LeChuck", random.Next(500, 3000)), "Zombie Pirate LeChuck")
             };
-            var multiplexer = new RoundRobinDispatcher(cooks);
-            var waiter = new Waiter(multiplexer);
+
+            var dispatcher = new RoundRobinDispatcher(cooks);
+            var waiter = new Waiter(dispatcher);
 
             list.Add(cashier);
             list.Add(assMan);
-            list.AddRange(cooks.Select(x => new TaskThreadedHandler(x, x.Name)));
+            list.AddRange(cooks);
 
             Task.Run(() => MonitorStuff(list));
 
-            for (var i = 0; i < 10; i++)
-            {
-                var order = new TableOrder(Guid.NewGuid());
-                waiter.Handle(order);
-            }
-
             list.ForEach(item => item.Start());
 
-            for (var i = 0; i < 10; i++)
+            for (var i = 0; i < 20; i++)
             {
                 var order = new TableOrder(Guid.NewGuid());
                 waiter.Handle(order);
@@ -54,7 +50,7 @@
         {
             while (true)
             {
-                Thread.Sleep(2000);
+                Thread.Sleep(500);
                 foreach (var handler in handlers)
                 {
                     Console.WriteLine("{0}: {1}", handler.Name, handler.Count);
