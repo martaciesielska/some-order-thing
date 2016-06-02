@@ -23,7 +23,7 @@
                 new TaskThreadedHandler(new Cook(assMan, "Zombie Pirate LeChuck", random.Next(500, 3000)), "Zombie Pirate LeChuck")
             };
 
-            var dispatcher = new RoundRobinDispatcher(cooks);
+            var dispatcher = new MoreFairDispatcher(cooks);
             var waiter = new Waiter(dispatcher);
 
             list.Add(cashier);
@@ -35,7 +35,7 @@
 
             list.ForEach(item => item.Start());
 
-            for (var i = 0; i < 20; i++)
+            for (var i = 0; i < 30; i++)
             {
                 var order = new TableOrder(Guid.NewGuid());
                 waiter.Handle(order);
