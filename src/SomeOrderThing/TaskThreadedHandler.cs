@@ -24,7 +24,7 @@
 
         public void Start()
         {
-            Task.Run(() => this.DoStuff(this.tokenSource.Token));
+            Task.Factory.StartNew(() => this.DoStuff(this.tokenSource.Token), TaskCreationOptions.LongRunning);
         }
 
         private void DoStuff(CancellationToken token)
