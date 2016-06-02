@@ -9,8 +9,9 @@
             var printer = new PrintingHandler();
             var cashier = new Cashier(printer);
             var assMan = new AssistantManager(cashier);
-            var cook = new Cook(assMan);
-            var waiter = new Waiter(cook);
+            var cooks = new Cook[] { new Cook(assMan), new Cook(assMan), new Cook(assMan) };
+            var multiplexer = new Multiplexer(cooks);
+            var waiter = new Waiter(multiplexer);
 
             for (var i = 0; i < 10; i++)
             {
