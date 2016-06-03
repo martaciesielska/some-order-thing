@@ -4,6 +4,10 @@
 
     public interface IMessage
     {
-        Guid Id { get; }
+        Guid MessageId { get; }
+
+        Guid CorrelationId { get; }
+
+        Guid CausationId { get; }
     }
 }

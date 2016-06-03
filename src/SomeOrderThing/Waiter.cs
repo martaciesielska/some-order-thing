@@ -18,7 +18,7 @@
             tableOrder.TableNumber = 17;
             tableOrder.LineItems.Add(new TableOrder.LineItem { Quantity = 1, Item = "KFC please", Price = 4m });
 
-            this.publisher.Publish(new OrderPlaced() { Order = tableOrder });
+            this.publisher.Publish(new OrderPlaced { Order = tableOrder, CorrelationId = order.Id });
         }
     }
 }

@@ -20,7 +20,7 @@
             tableOrder.Tax = 12.4m;
             tableOrder.Total = tableOrder.LineItems.Sum(lineItem => lineItem.Quantity * lineItem.Price) + tableOrder.Tax;
 
-            this.publisher.Publish(new OrderPriced() { Order = tableOrder });
+            this.publisher.Publish(new OrderPriced(command) { Order = tableOrder });
         }
     }
 }

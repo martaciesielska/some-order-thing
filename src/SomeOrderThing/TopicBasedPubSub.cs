@@ -2,15 +2,23 @@
 {
     using System.Collections.Generic;
     using System.Collections.Concurrent;
-
+    using Messages;
     public class TopicBasedPubSub : IPublisher
     {
         private readonly ConcurrentDictionary<string, List<object>> handlers
             = new ConcurrentDictionary<string, List<object>>();
 
-        public void Publish<T>(T message)
+        public void Publish<T>(T message) where T : IMessage
         {
             var topic = message.GetType().Name;
+            var correlationId = message.CorrelationId.ToString("N");
+
+            this.PublishInternal(topic, message);
+            this.PublishInternal(correlationId, message);
+        }
+
+        private void PublishInternal<T>(string topic, T message) where T : IMessage
+        {
             List<object> handlersOfT;
 
             if (this.handlers.TryGetValue(topic, out handlersOfT))

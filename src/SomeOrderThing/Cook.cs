@@ -34,7 +34,7 @@
             tableOrder.Ingredients = "KFC chicken";
             tableOrder.CookName = this.name;
 
-            this.publisher.Publish(new OrderCooked() { Order = tableOrder });
+            this.publisher.Publish(new OrderCooked(command) { Order = tableOrder });
         }
     }
 }

@@ -16,7 +16,7 @@
         {
             var tableOrder = command.Order.Copy();
             tableOrder.Paid = true;
-            this.publisher.Publish(new OrderPaid() { Order = tableOrder });
+            this.publisher.Publish(new OrderPaid(command) { Order = tableOrder });
         }
     }
 }
