@@ -14,6 +14,7 @@
         {
             var publisher = new TopicBasedPubSub();
 
+            var monitor = new Monitor();
             var printer = new PrintingHandler();
             var cashier = new TaskThreadedHandler<TakePayment>(new Cashier(publisher), "cashier");
             var assMan = new TaskThreadedHandler<PriceOrder>(new AssistantManager(publisher), "assMan");
@@ -46,7 +47,9 @@
 
             for (var i = 0; i < 50; i++)
             {
-                var order = new TableOrder(Guid.NewGuid());
+                var id = Guid.NewGuid();
+                publisher.SubscribeByCorrelationId(id, monitor);
+                var order = new TableOrder(id);
                 waiter.Handle(order);
             }
 

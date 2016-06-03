@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Collections.Concurrent;
     using Messages;
+    using System;
     public class TopicBasedPubSub : IPublisher
     {
         private readonly ConcurrentDictionary<string, List<object>> handlers
@@ -26,9 +27,16 @@
                 foreach (var handler in handlersOfT)
                 {
                     var typedHandler = handler as IHandle<T>;
+                    var otherTypedHandler = handler as IHandle<IMessage>;
+
                     if (typedHandler != null)
                     {
                         typedHandler.Handle(message);
+                    }
+
+                    if (otherTypedHandler != null)
+                    {
+                        otherTypedHandler.Handle(message);
                     }
                 }
             }
@@ -37,6 +45,11 @@
         public void SubscribeByType<T>(IHandle<T> handler)
         {
             this.Subscribe(typeof(T).Name, handler);
+        }
+
+        public void SubscribeByCorrelationId<T>(Guid correlationId, IHandle<T> handler)
+        {
+            this.Subscribe(correlationId.ToString("N"), handler);
         }
 
         public void Subscribe<T>(string topic, IHandle<T> handler)
@@ -57,6 +70,11 @@
         public void UnsubscribeByType<T>(IHandle<T> handler)
         {
             this.Unsubscribe(typeof(T).Name, handler);
+        }
+   
+        public void UnsubscribeByCorrelationId<T>(Guid correlationId, IHandle<T> handler)
+        {
+            this.Unsubscribe(correlationId.ToString("N"), handler);
         }
 
         public void Unsubscribe<T>(string topic, IHandle<T> handler)

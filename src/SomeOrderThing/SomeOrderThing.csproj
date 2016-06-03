@@ -63,6 +63,7 @@
     <Compile Include="Messages\Events\OrderPriced.cs" />
     <Compile Include="Messages\Events\OrderPlaced.cs" />
     <Compile Include="Multiplexer.cs" />
+    <Compile Include="Monitor.cs" />
     <Compile Include="PrintingHandler.cs" />
     <Compile Include="IHandle.cs" />
     <Compile Include="MoreFairDispatcher.cs" />
