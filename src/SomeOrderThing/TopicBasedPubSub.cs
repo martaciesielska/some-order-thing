@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Collections.Concurrent;
     using Messages;
+    using Messages.Events;
     using System;
     public class TopicBasedPubSub : IPublisher
     {
@@ -26,17 +27,7 @@
             {
                 foreach (var handler in handlersOfT)
                 {
-                    var typedHandler = handler as IHandle<T>;
-                    var otherTypedHandler = handler as IHandle<IMessage>;
-
-                    if (typedHandler != null)
-                    {
-                        typedHandler.Handle(message);
-                    }
-                    else if (otherTypedHandler != null)
-                    {
-                        otherTypedHandler.Handle(message);
-                    }
+                    ((dynamic)handler).Handle(message);
                 }
             }
         }
