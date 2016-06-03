@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="AssistantManager.cs" />
     <Compile Include="Cashier.cs" />
+    <Compile Include="DroppingHandler.cs" />
     <Compile Include="IBus.cs" />
     <Compile Include="IMidget.cs" />
     <Compile Include="IMonitorable.cs" />

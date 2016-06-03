@@ -30,7 +30,7 @@
             };
 
             var dispatcher = new TaskThreadedHandler<CookFood>(
-                new MoreFairDispatcher<CookFood>(cooks), "More fair handler");
+                new DroppingHandler<CookFood>(new MoreFairDispatcher<CookFood>(cooks)), "More fair handler");
 
             var waiter = new Waiter(publisher);
 

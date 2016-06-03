@@ -2,6 +2,6 @@
 {
     public interface IHandle<T>
     {
-        void Handle(T order);
+        void Handle(T message);
     }
 }
