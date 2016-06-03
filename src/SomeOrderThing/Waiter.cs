@@ -1,6 +1,6 @@
 ﻿namespace SomeOrderThing
 {
-    using Messages;
+    using Messages.Events;
 
     public class Waiter
     {

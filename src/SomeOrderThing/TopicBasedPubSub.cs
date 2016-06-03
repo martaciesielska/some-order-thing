@@ -11,11 +11,11 @@
         public void Publish<T>(T message)
         {
             var topic = message.GetType().Name;
-            List<object> handlers;
+            List<object> handlersOfT;
 
-            if (this.handlers.TryGetValue(topic, out handlers))
+            if (this.handlers.TryGetValue(topic, out handlersOfT))
             {
-                foreach (var handler in handlers)
+                foreach (var handler in handlersOfT)
                 {
                     var typedHandler = handler as IHandle<T>;
                     if (typedHandler != null)

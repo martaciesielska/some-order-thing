@@ -5,7 +5,8 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using Messages;
+    using Messages.Events;
+    using Messages.Commands;
 
     internal class Program
     {
@@ -14,19 +15,19 @@
             var publisher = new TopicBasedPubSub();
 
             var printer = new PrintingHandler();
-            var cashier = new TaskThreadedHandler<OrderPriced>(new Cashier(publisher), "cashier");
-            var assMan = new TaskThreadedHandler<OrderCooked>(new AssistantManager(publisher), "assMan");
+            var cashier = new TaskThreadedHandler<TakePayment>(new Cashier(publisher), "cashier");
+            var assMan = new TaskThreadedHandler<PriceOrder>(new AssistantManager(publisher), "assMan");
 
             var random = new Random();
             var cooks = new[]
             {
-                new TaskThreadedHandler<OrderPlaced>(new Cook(publisher, "Guybrush Threepwood", random.Next(500, 3000)), "Guybrush Threepwood"),
-                new TaskThreadedHandler<OrderPlaced>(new Cook(publisher, "Elaine Marley", random.Next(500, 3000)), "Elaine Marley"),
-                new TaskThreadedHandler<OrderPlaced>(new Cook(publisher, "Zombie Pirate LeChuck", random.Next(500, 3000)), "Zombie Pirate LeChuck")
+                new TaskThreadedHandler<CookFood>(new Cook(publisher, "Guybrush Threepwood", random.Next(500, 3000)), "Guybrush Threepwood"),
+                new TaskThreadedHandler<CookFood>(new Cook(publisher, "Elaine Marley", random.Next(500, 3000)), "Elaine Marley"),
+                new TaskThreadedHandler<CookFood>(new Cook(publisher, "Zombie Pirate LeChuck", random.Next(500, 3000)), "Zombie Pirate LeChuck")
             };
 
-            var dispatcher = new TaskThreadedHandler<OrderPlaced>(
-                new MoreFairDispatcher<OrderPlaced>(cooks), "More fair handler");
+            var dispatcher = new TaskThreadedHandler<CookFood>(
+                new MoreFairDispatcher<CookFood>(cooks), "More fair handler");
 
             var waiter = new Waiter(publisher);
 

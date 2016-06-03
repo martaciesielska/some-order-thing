@@ -1,9 +1,10 @@
 ﻿namespace SomeOrderThing
 {
     using System.Threading;
-    using Messages;
+    using Messages.Events;
+    using Messages.Commands;
 
-    public class Cook : IHandle<OrderPlaced>
+    public class Cook : IHandle<CookFood>
     {
         private readonly IPublisher publisher;
         private readonly string name;
@@ -24,11 +25,11 @@
             }
         }
 
-        public void Handle(OrderPlaced orderPlaced)
+        public void Handle(CookFood command)
         {
             Thread.Sleep(this.sleepTime);
 
-            var tableOrder = orderPlaced.Order.Copy();
+            var tableOrder = command.Order.Copy();
 
             tableOrder.Ingredients = "KFC chicken";
             tableOrder.CookName = this.name;

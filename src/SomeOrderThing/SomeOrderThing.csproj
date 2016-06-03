@@ -52,12 +52,16 @@
     <Compile Include="IPublisher.cs" />
     <Compile Include="IStartable.cs" />
     <Compile Include="ListExtensions.cs" />
+    <Compile Include="Messages\Commands\PrintOrder.cs" />
+    <Compile Include="Messages\Commands\CookFood.cs" />
+    <Compile Include="Messages\Commands\PriceOrder.cs" />
+    <Compile Include="Messages\Commands\TakePayment.cs" />
     <Compile Include="Messages\IMessage.cs" />
     <Compile Include="Messages\MessageBase.cs" />
-    <Compile Include="Messages\OrderCooked.cs" />
-    <Compile Include="Messages\OrderPaid.cs" />
-    <Compile Include="Messages\OrderPriced.cs" />
-    <Compile Include="Messages\OrderPlaced.cs" />
+    <Compile Include="Messages\Events\OrderCooked.cs" />
+    <Compile Include="Messages\Events\OrderPaid.cs" />
+    <Compile Include="Messages\Events\OrderPriced.cs" />
+    <Compile Include="Messages\Events\OrderPlaced.cs" />
     <Compile Include="Multiplexer.cs" />
     <Compile Include="PrintingHandler.cs" />
     <Compile Include="IHandle.cs" />
@@ -76,6 +80,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

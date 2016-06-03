@@ -1,9 +1,10 @@
 ﻿namespace SomeOrderThing
 {
     using System.Linq;
-    using Messages;
+    using Messages.Events;
+    using Messages.Commands;
 
-    public class AssistantManager : IHandle<OrderCooked>
+    public class AssistantManager : IHandle<PriceOrder>
     {
         private readonly IPublisher publisher;
 
@@ -12,9 +13,9 @@
             this.publisher = publisher;
         }
 
-        public void Handle(OrderCooked orderCooked)
+        public void Handle(PriceOrder command)
         {
-            var tableOrder = orderCooked.Order.Copy();
+            var tableOrder = command.Order.Copy();
 
             tableOrder.Tax = 12.4m;
             tableOrder.Total = tableOrder.LineItems.Sum(lineItem => lineItem.Quantity * lineItem.Price) + tableOrder.Tax;

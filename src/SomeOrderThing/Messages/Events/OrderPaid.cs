@@ -1,4 +1,4 @@
-﻿namespace SomeOrderThing.Messages
+﻿namespace SomeOrderThing.Messages.Events
 {
     public class OrderPaid : MessageBase
     {

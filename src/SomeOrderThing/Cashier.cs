@@ -1,8 +1,9 @@
 ﻿namespace SomeOrderThing
 {
-    using Messages;
+    using Messages.Events;
+    using Messages.Commands;
 
-    public class Cashier : IHandle<OrderPriced>
+    public class Cashier : IHandle<TakePayment>
     {
         private readonly IPublisher publisher;
 
@@ -11,9 +12,9 @@
             this.publisher = publisher;
         }
 
-        public void Handle(OrderPriced orderPriced)
+        public void Handle(TakePayment command)
         {
-            var tableOrder = orderPriced.Order.Copy();
+            var tableOrder = command.Order.Copy();
             tableOrder.Paid = true;
             this.publisher.Publish(new OrderPaid() { Order = tableOrder });
         }
