@@ -48,10 +48,12 @@
   <ItemGroup>
     <Compile Include="AssistantManager.cs" />
     <Compile Include="Cashier.cs" />
+    <Compile Include="IBus.cs" />
     <Compile Include="IMidget.cs" />
     <Compile Include="IMonitorable.cs" />
     <Compile Include="IPublisher.cs" />
     <Compile Include="IStartable.cs" />
+    <Compile Include="ISubscriber.cs" />
     <Compile Include="ListExtensions.cs" />
     <Compile Include="MidgetEventArgs.cs" />
     <Compile Include="ZimbabwianMidget.cs" />

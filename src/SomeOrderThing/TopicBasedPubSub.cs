@@ -5,7 +5,7 @@
     using Messages;
     using Messages.Events;
     using System;
-    public class TopicBasedPubSub : IPublisher
+    public class TopicBasedPubSub : IBus
     {
         private readonly ConcurrentDictionary<string, List<object>> handlers
             = new ConcurrentDictionary<string, List<object>>();

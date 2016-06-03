@@ -14,7 +14,7 @@
         public void Handle(TableOrder order)
         {
             var tableOrder = order.Copy();
-            var random = new Random();
+            var random = new Random(Guid.NewGuid().GetHashCode());
 
             tableOrder.TableNumber = 17;
             tableOrder.LineItems.Add(
@@ -25,7 +25,7 @@
                     Price = 4m
                 });
 
-            tableOrder.IsDodgy = random.Next(2) == 1;
+            tableOrder.IsDodgy = random.Next(100) < 50;
 
             this.publisher.Publish(new OrderPlaced { Order = tableOrder, CorrelationId = order.Id });
         }

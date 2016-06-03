@@ -9,9 +9,9 @@
     {
         private readonly IDictionary<Guid, IHandle<IEvent>> midgetMappings 
             = new Dictionary<Guid, IHandle<IEvent>>();
-        private readonly TopicBasedPubSub publisher;
+        private readonly IBus publisher;
 
-        public MidgetHouse(TopicBasedPubSub publisher) // refactor later potentially
+        public MidgetHouse(IBus publisher)
         {
             this.publisher = publisher;
         }
