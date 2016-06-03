@@ -7,7 +7,8 @@
 
     public class MidgetHouse : IHandle<OrderPlaced>
     {
-        private readonly IDictionary<Guid, Midget> midgetMappings = new Dictionary<Guid, Midget>();
+        private readonly IDictionary<Guid, Midget> midgetMappings 
+            = new Dictionary<Guid, Midget>();
         private readonly TopicBasedPubSub publisher;
 
         public MidgetHouse(TopicBasedPubSub publisher) // refactor later potentially
@@ -18,11 +19,22 @@
         public void Handle(OrderPlaced order)
         {
             var midget = this.ReleaseTheMidget();
-            this.midgetMappings.Add(order.CorrelationId, midget);
 
-            this.publisher.SubscribeByCorrelationId<IMessage>(order.CorrelationId, midget);
+            midget.Finished += Midget_Finished;
+
+            this.midgetMappings.Add(
+                order.CorrelationId,
+                midget);
+
+            this.publisher.SubscribeByCorrelationId<IEvent>(order.CorrelationId, midget);
 
             midget.Handle(order);
+        }
+
+        private void Midget_Finished(object sender, EventArgs e)
+        {
+            var midgetArgs = e as MidgetEventArgs;
+            this.midgetMappings.Remove(midgetArgs.CorrelationId);
         }
 
         public Midget ReleaseTheMidget()

@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class OrderPlaced : MessageBase
+    public class OrderPlaced : MessageBase, IEvent
     {
         public OrderPlaced() : base()
         {

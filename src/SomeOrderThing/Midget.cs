@@ -6,23 +6,25 @@
     using Messages.Events;
 
     public class Midget : 
-        IHandle<IMessage>
+        IHandle<IEvent>
     {
         private readonly IPublisher publisher;
+        public event EventHandler Finished;
 
         public Midget(IPublisher publisher)
         {
             this.publisher = publisher;
         }
 
-        public void Handle(IMessage order)
+        public void Handle(IEvent @event)
         {
-            this.HandleInternal((dynamic)order);
+            this.HandleInternal((dynamic)@event);
         }
 
         private void HandleInternal(OrderPaid message)
         {
             this.publisher.Publish(new PrintOrder(message) { Order = message.Order });
+            this.Finished.Invoke(this, new MidgetEventArgs() { CorrelationId = message.CorrelationId });
         }
 
         private void HandleInternal(OrderPriced message)
@@ -39,5 +41,10 @@
         {
             this.publisher.Publish(new CookFood(message) { Order = message.Order });
         }
+    }
+
+    public class MidgetEventArgs : EventArgs
+    {
+        public Guid CorrelationId { get; set; }
     }
 }

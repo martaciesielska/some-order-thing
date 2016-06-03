@@ -1,6 +1,6 @@
 ﻿namespace SomeOrderThing.Messages.Events
 {
-    public class OrderPriced : MessageBase
+    public class OrderPriced : MessageBase, IEvent
     {
         public OrderPriced(IMessage message) : base(message)
         {
