@@ -48,7 +48,7 @@
 
             list.ForEach(item => item.Start());
 
-            for (var i = 0; i < 50; i++)
+            for (var i = 0; i < 1; i++)
             {
                 var id = Guid.NewGuid();
                 publisher.SubscribeByCorrelationId(id, monitor);

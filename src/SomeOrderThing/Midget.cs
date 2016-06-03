@@ -6,10 +6,7 @@
     using Messages.Events;
 
     public class Midget : 
-        IHandle<OrderPlaced>, 
-        IHandle<OrderCooked>,
-        IHandle<OrderPriced>,
-        IHandle<OrderPaid>
+        IHandle<IMessage>
     {
         private readonly IPublisher publisher;
 
@@ -18,22 +15,27 @@
             this.publisher = publisher;
         }
 
-        public void Handle(OrderPaid message)
+        public void Handle(IMessage order)
+        {
+            this.HandleInternal((dynamic)order);
+        }
+
+        private void HandleInternal(OrderPaid message)
         {
             this.publisher.Publish(new PrintOrder(message) { Order = message.Order });
         }
 
-        public void Handle(OrderPriced message)
+        private void HandleInternal(OrderPriced message)
         {
             this.publisher.Publish(new TakePayment(message) { Order = message.Order });
         }
 
-        public void Handle(OrderCooked message)
+        private void HandleInternal(OrderCooked message)
         {
             this.publisher.Publish(new PriceOrder(message) { Order = message.Order });
         }
 
-        public void Handle(OrderPlaced message)
+        private void HandleInternal(OrderPlaced message)
         {
             this.publisher.Publish(new CookFood(message) { Order = message.Order });
         }

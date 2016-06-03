@@ -20,9 +20,7 @@
             var midget = this.ReleaseTheMidget();
             this.midgetMappings.Add(order.CorrelationId, midget);
 
-            this.publisher.SubscribeByCorrelationId<OrderCooked>(order.CorrelationId, midget);
-            this.publisher.SubscribeByCorrelationId<OrderPriced>(order.CorrelationId, midget);
-            this.publisher.SubscribeByCorrelationId<OrderPaid>(order.CorrelationId, midget);
+            this.publisher.SubscribeByCorrelationId<IMessage>(order.CorrelationId, midget);
 
             midget.Handle(order);
         }
