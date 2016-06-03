@@ -34,6 +34,9 @@
         private void Midget_Finished(object sender, EventArgs e)
         {
             var midgetArgs = e as MidgetEventArgs;
+            var midget = this.midgetMappings[midgetArgs.CorrelationId];
+
+            this.publisher.UnsubscribeByCorrelationId(midgetArgs.CorrelationId, midget);
             this.midgetMappings.Remove(midgetArgs.CorrelationId);
         }
 

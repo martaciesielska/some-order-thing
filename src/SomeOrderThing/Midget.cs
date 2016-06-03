@@ -23,8 +23,8 @@
 
         private void HandleInternal(OrderPaid message)
         {
-            this.publisher.Publish(new PrintOrder(message) { Order = message.Order });
             this.Finished.Invoke(this, new MidgetEventArgs() { CorrelationId = message.CorrelationId });
+            this.publisher.Publish(new PrintOrder(message) { Order = message.Order });
         }
 
         private void HandleInternal(OrderPriced message)
