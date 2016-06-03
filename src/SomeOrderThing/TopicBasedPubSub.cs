@@ -33,8 +33,7 @@
                     {
                         typedHandler.Handle(message);
                     }
-
-                    if (otherTypedHandler != null)
+                    else if (otherTypedHandler != null)
                     {
                         otherTypedHandler.Handle(message);
                     }

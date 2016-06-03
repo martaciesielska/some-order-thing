@@ -35,7 +35,7 @@
             var waiter = new Waiter(publisher);
 
             var list = new List<IMonitorable>();
-            list.AddRange(cooks, cashier, assMan, dispatcher);
+            list.AddRange(cooks, cashier, assMan, dispatcher, midgetHouse);
 
             publisher.SubscribeByType(dispatcher);
             publisher.SubscribeByType(assMan);

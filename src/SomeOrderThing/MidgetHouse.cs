@@ -3,10 +3,11 @@
     using System;
     using System.Collections.Generic;
     using Messages.Events;
+    using Messages;
 
     public class MidgetHouse : IHandle<OrderPlaced>
     {
-        private readonly Dictionary<Guid, Midget> midgetMappings = new Dictionary<Guid, Midget>();
+        private readonly IDictionary<Guid, Midget> midgetMappings = new Dictionary<Guid, Midget>();
         private readonly TopicBasedPubSub publisher;
 
         public MidgetHouse(TopicBasedPubSub publisher) // refactor later potentially
@@ -18,7 +19,12 @@
         {
             var midget = this.ReleaseTheMidget();
             this.midgetMappings.Add(order.CorrelationId, midget);
-            this.publisher.SubscribeByCorrelationId(order.CorrelationId, midget);
+
+            this.publisher.SubscribeByCorrelationId<OrderCooked>(order.CorrelationId, midget);
+            this.publisher.SubscribeByCorrelationId<OrderPriced>(order.CorrelationId, midget);
+            this.publisher.SubscribeByCorrelationId<OrderPaid>(order.CorrelationId, midget);
+
+            midget.Handle(order);
         }
 
         public Midget ReleaseTheMidget()
