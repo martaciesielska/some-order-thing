@@ -19,6 +19,8 @@
             var cashier = new TaskThreadedHandler<TakePayment>(new Cashier(publisher), "cashier");
             var assMan = new TaskThreadedHandler<PriceOrder>(new AssistantManager(publisher), "assMan");
 
+            var midgetHouse = new TaskThreadedHandler<OrderPlaced>(new MidgetHouse(publisher), "MidgetHouse");
+
             var random = new Random();
             var cooks = new[]
             {
@@ -39,6 +41,7 @@
             publisher.SubscribeByType(assMan);
             publisher.SubscribeByType(cashier);
             publisher.SubscribeByType(printer);
+            publisher.SubscribeByType(midgetHouse);
 
             var cts = new CancellationTokenSource();
             Task.Run(() => MonitorStuff(list, cts.Token));

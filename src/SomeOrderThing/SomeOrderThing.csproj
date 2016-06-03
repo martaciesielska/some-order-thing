@@ -62,6 +62,8 @@
     <Compile Include="Messages\Events\OrderPaid.cs" />
     <Compile Include="Messages\Events\OrderPriced.cs" />
     <Compile Include="Messages\Events\OrderPlaced.cs" />
+    <Compile Include="Midget.cs" />
+    <Compile Include="MidgetHouse.cs" />
     <Compile Include="Multiplexer.cs" />
     <Compile Include="Monitor.cs" />
     <Compile Include="PrintingHandler.cs" />
