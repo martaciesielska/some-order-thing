@@ -5,13 +5,12 @@
     using Messages.Commands;
     using Messages.Events;
 
-    public class Midget : 
-        IHandle<IEvent>
+    public class LithuanianMidget : IHandle<IEvent>, IMidget
     {
         private readonly IPublisher publisher;
         public event EventHandler Finished;
 
-        public Midget(IPublisher publisher)
+        public LithuanianMidget(IPublisher publisher)
         {
             this.publisher = publisher;
         }
@@ -41,10 +40,5 @@
         {
             this.publisher.Publish(new CookFood(message) { Order = message.Order });
         }
-    }
-
-    public class MidgetEventArgs : EventArgs
-    {
-        public Guid CorrelationId { get; set; }
     }
 }

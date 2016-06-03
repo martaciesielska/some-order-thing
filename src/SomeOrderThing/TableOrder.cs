@@ -85,6 +85,12 @@
             set { this.joey["cookName"] = value; }
         }
 
+        public bool IsDodgy
+        {
+            get { return (bool)this.joey["isDodgy"]; }
+            set { this.joey["isDodgy"] = value; }
+        }
+
         public TableOrder Copy()
         {
             return new TableOrder((JObject)this.Serialize().DeepClone());

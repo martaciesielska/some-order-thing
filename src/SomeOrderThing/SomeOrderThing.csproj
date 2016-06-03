@@ -48,10 +48,13 @@
   <ItemGroup>
     <Compile Include="AssistantManager.cs" />
     <Compile Include="Cashier.cs" />
+    <Compile Include="IMidget.cs" />
     <Compile Include="IMonitorable.cs" />
     <Compile Include="IPublisher.cs" />
     <Compile Include="IStartable.cs" />
     <Compile Include="ListExtensions.cs" />
+    <Compile Include="MidgetEventArgs.cs" />
+    <Compile Include="ZimbabwianMidget.cs" />
     <Compile Include="Messages\Commands\PrintOrder.cs" />
     <Compile Include="Messages\Commands\CookFood.cs" />
     <Compile Include="Messages\Commands\PriceOrder.cs" />
@@ -63,7 +66,7 @@
     <Compile Include="Messages\Events\OrderPaid.cs" />
     <Compile Include="Messages\Events\OrderPriced.cs" />
     <Compile Include="Messages\Events\OrderPlaced.cs" />
-    <Compile Include="Midget.cs" />
+    <Compile Include="LithuanianMidget.cs" />
     <Compile Include="MidgetHouse.cs" />
     <Compile Include="Multiplexer.cs" />
     <Compile Include="Monitor.cs" />
