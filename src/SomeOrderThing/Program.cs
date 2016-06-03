@@ -65,6 +65,8 @@
             cts.Cancel();
 
             list.ForEach(item => item.Dispose());
+
+            Console.ReadLine();
         }
 
         private static void MonitorStuff(IEnumerable<IMonitorable> handlers, CancellationToken token)
