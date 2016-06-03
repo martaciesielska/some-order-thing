@@ -16,6 +16,7 @@ namespace SomeOrderThing
         {
             if (Random.Next(10) == 1)
             {
+                Console.WriteLine("DroppingHandler so amazing.");
                 return;
             }
 
