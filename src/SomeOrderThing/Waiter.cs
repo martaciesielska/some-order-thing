@@ -25,7 +25,7 @@
                     Price = 4m
                 });
 
-            tableOrder.IsDodgy = random.Next(100) < 50;
+            tableOrder.IsDodgy = random.Next(2) == 1;
 
             this.publisher.Publish(new OrderPlaced { Order = tableOrder, CorrelationId = order.Id });
         }
