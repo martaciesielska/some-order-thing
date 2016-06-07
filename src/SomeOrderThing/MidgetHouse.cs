@@ -7,8 +7,8 @@
 
     public class MidgetHouse : IHandle<OrderPlaced>
     {
-        private readonly IDictionary<Guid, IHandle<IEvent>> midgetMappings 
-            = new Dictionary<Guid, IHandle<IEvent>>();
+        private readonly IDictionary<Guid, IHandle<IMessage>> midgetMappings 
+            = new Dictionary<Guid, IHandle<IMessage>>();
         private readonly IBus publisher;
 
         public MidgetHouse(IBus publisher)
@@ -26,7 +26,7 @@
                 @event.CorrelationId,
                 midget);
 
-            this.publisher.SubscribeByCorrelationId<IEvent>(@event.CorrelationId, midget);
+            this.publisher.SubscribeByCorrelationId<IMessage>(@event.CorrelationId, midget);
 
             midget.Handle(@event);
         }

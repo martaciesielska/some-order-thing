@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlarmClock.cs" />
     <Compile Include="AssistantManager.cs" />
     <Compile Include="Cashier.cs" />
     <Compile Include="DroppingHandler.cs" />
@@ -56,7 +57,9 @@
     <Compile Include="IStartable.cs" />
     <Compile Include="ISubscriber.cs" />
     <Compile Include="ListExtensions.cs" />
+    <Compile Include="Messages\Commands\SendToMeIn.cs" />
     <Compile Include="MidgetEventArgs.cs" />
+    <Compile Include="Messages\Commands\RetryCooking.cs" />
     <Compile Include="ZimbabwianMidget.cs" />
     <Compile Include="Messages\Commands\PrintOrder.cs" />
     <Compile Include="Messages\Commands\CookFood.cs" />

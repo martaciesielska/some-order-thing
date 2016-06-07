@@ -1,9 +1,9 @@
 ﻿namespace SomeOrderThing
 {
-    using Messages.Events;
+    using Messages;
     using System;
 
-    public interface IMidget : IHandle<IEvent>
+    public interface IMidget : IHandle<IMessage>
     {
        event EventHandler Finished;
     }

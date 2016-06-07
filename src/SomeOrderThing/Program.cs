@@ -18,6 +18,7 @@
             var printer = new PrintingHandler();
             var cashier = new TaskThreadedHandler<TakePayment>(new Cashier(publisher), "cashier");
             var assMan = new TaskThreadedHandler<PriceOrder>(new AssistantManager(publisher), "assMan");
+            var alarmClock = new TaskThreadedHandler<SendToMeIn>(new AlarmClock(publisher), "clock");
 
             var midgetHouse = new TaskThreadedHandler<OrderPlaced>(new MidgetHouse(publisher), "MidgetHouse");
 
@@ -35,20 +36,21 @@
             var waiter = new Waiter(publisher);
 
             var list = new List<IMonitorable>();
-            list.AddRange(cooks, cashier, assMan, dispatcher, midgetHouse);
+            list.AddRange(cooks, cashier, assMan, dispatcher, midgetHouse, alarmClock);
 
             publisher.SubscribeByType(dispatcher);
             publisher.SubscribeByType(assMan);
             publisher.SubscribeByType(cashier);
             publisher.SubscribeByType(printer);
             publisher.SubscribeByType(midgetHouse);
+            publisher.SubscribeByType(alarmClock);
 
             var cts = new CancellationTokenSource();
             Task.Run(() => MonitorStuff(list, cts.Token));
 
             list.ForEach(item => item.Start());
 
-            for (var i = 0; i < 20; i++)
+            for (var i = 0; i < 50; i++)
             {
                 var id = Guid.NewGuid();
                 publisher.SubscribeByCorrelationId(id, monitor);
@@ -56,9 +58,9 @@
                 waiter.Handle(order);
             }
 
-            Thread.Sleep(2000);
+            /*Thread.Sleep(2000);
             publisher.UnsubscribeByType(dispatcher);
-            publisher.SubscribeByType(cooks.First());
+            publisher.SubscribeByType(cooks.First());*/
 
             Console.ReadLine();
 
